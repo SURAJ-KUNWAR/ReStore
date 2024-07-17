@@ -8,6 +8,11 @@ axios.defaults.withCredentials = true;
 const responseBody = (response: AxiosResponse) => response.data;
 axios.interceptors.response.use(
   async (response) => {
+    //const delay = (ms: number) =>
+    //new Promise((resolve) => setTimeout(resolve, ms));
+
+    // Introduce a day of 3 seconds (3000 milliseconds)
+    //await delay(3000);
     return response;
   },
   (err: AxiosError) => {

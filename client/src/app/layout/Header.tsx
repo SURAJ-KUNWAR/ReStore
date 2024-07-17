@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import { useStoreContext } from "../context/StoreContext";
+import { useAppSelector } from "../store/configureStore";
 
 const midLinks = [
   { title: "Catalog", path: "/catalog" },
@@ -43,7 +44,7 @@ export default function Header({ changeTheme }: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeTheme(event.target.checked);
   };
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
   const itemQuantity = basket?.items.reduce(
     (sum, item) => (sum += item.quantity),
     0

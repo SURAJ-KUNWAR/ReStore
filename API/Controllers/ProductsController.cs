@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using API.Extensions;
 
 namespace API.Controllers
 {
@@ -17,9 +18,14 @@ namespace API.Controllers
         }
 
         [HttpGet]
-       public  async Task<ActionResult<List<Product>>> GetProducts(){
-            return await _context.Products.ToListAsync();
-            
+       public  async Task<ActionResult<List<Product>>> GetProducts(string orderBy ,string searchTerm ,string brands, string types){
+            var query =  _context.Products.
+            Sort(orderBy)
+            .Search(searchTerm)
+            .Filter(brands , types)
+            .AsQueryable();
+
+            return await query.ToListAsync();
         }
 
         [HttpGet("{id}")]
